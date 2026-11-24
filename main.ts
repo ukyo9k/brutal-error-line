@@ -36,7 +36,9 @@ function main(): void {
   const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, "entry.txt"), ENTRY_LINE + "\n", "utf8");
+  // Read-back guard: re-read entry.txt and fail loudly if it isn't byte-identical.
   verifyEntryFile(outDir);
+  console.log(`read-back verification passed: entry.txt is byte-identical (${chars.length} characters)`);
   console.log(`wrote entry.txt (${chars.length} characters)`);
 }
 
